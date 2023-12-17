@@ -13,6 +13,8 @@ import { resourcesFactory } from "./resourcesFactory";
 import Layout from "./ui/Layout";
 import { validateItems } from "./validateItems";
 
+import myJsonData from "../../verify-design/gwv_result.conv.json"
+
 const i18nMesssages: Record<string, TranslationMessages> = {
 	ja: {
 		...japaneseMessages,
@@ -50,8 +52,9 @@ const App = () => {
 
 	React.useEffect(() => {
 		void dataPromise.then((data) => {
-			setDataProvider(dataProviderFactory(data));
-			setResources(loadResources(data));
+			if(data == null) return;
+			setDataProvider(dataProviderFactory(myJsonData as GWVJSON));
+			setResources(loadResources(myJsonData as GWVJSON));
 		});
 	}, []);
 
